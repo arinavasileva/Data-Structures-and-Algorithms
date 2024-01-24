@@ -1,0 +1,13 @@
+int main(int argc, char* argv[]) {
+    Measurements m1, m2;
+    if (m1.read(filename)) {
+        m1.print();
+        m2 = m1; // This now uses the copy constructor and assignment operator
+        m2.inc(0.1);
+        std::cout << "Mean m1 is " << m1.mean() << std::endl;
+        std::cout << "Mean m2 is " << m2.mean() << std::endl;
+    } else {
+        std::cout << "Can't open the file '" << filename << "'" << std::endl;
+    }
+    return 0;
+}
