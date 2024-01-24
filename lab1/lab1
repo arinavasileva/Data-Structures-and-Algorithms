@@ -1,1 +1,67 @@
-exercises 1abc 
+#include <iostream>
+#include <iomanip>
+
+// defining and implementing class Time
+
+class Time {
+private:
+    int hours;
+    int minutes;
+
+public:
+    // 1. Member function to read time from the keyboard
+    void read(const std::string& prompt) {
+        std::cout << prompt << " (hh:mm): ";
+        std::cin >> hours >> minutes;
+    }
+
+    // 2. Member function to compare two times
+    bool lessThan(const Time& other) const {
+        if (hours < other.hours || (hours == other.hours && minutes < other.minutes)) {
+            return true;
+        }
+        return false;
+    }
+
+    // 3. Member function to subtract two times
+    Time subtract(const Time& other) const {
+        Time result;
+        int thisInMinutes = hours * 60 + minutes;
+        int otherInMinutes = other.hours * 60 + other.minutes;
+
+        int difference = thisInMinutes - otherInMinutes;
+
+        result.hours = difference / 60;
+        result.minutes = difference % 60;
+
+        return result;
+    }
+
+    // 4. Member function to display time in the format hh:mm
+    void display() const {
+        std::cout << std::setw(2) << std::setfill('0') << hours << ":"
+                  << std::setw(2) << std::setfill('0') << minutes;
+    }
+};
+
+int main() {
+    Time time1, time2, duration;
+    time1.read("Enter time 1");
+    time2.read("Enter time 2");
+
+    if (time1.lessThan(time2)) {
+        duration = time2.subtract(time1);
+        std::cout << "Starting time was ";
+        time1.display();
+    } else {
+        duration = time1.subtract(time2);
+        std::cout << "Starting time was ";
+        time2.display();
+    }
+
+    std::cout << " Duration was ";
+    duration.display();
+
+    return 0;
+}
+
