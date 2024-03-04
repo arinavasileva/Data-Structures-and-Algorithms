@@ -1,0 +1,69 @@
+#include <iostream>
+#include <windows.h>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <map>
+
+void HUD();
+void Combat();
+void CombatHUD();
+void Moving();
+void CreateGhost();
+void LevelUp();
+
+std::string name = "", race = "", sex = "";
+int level = 0, xp = 0, health = 0, totalHealth = 0, maxHealth = 0, nextLevel, heal = 0;
+int ghostHp = 0;
+int ghostXp = 0;
+int ghostLevel = 0;
+
+std::vector<std::string> playerRace = { "elf", "dwarf", "goblin", "human" };
+std::map<std::string, int> ghostNames = { {"Spirit of Shadows", 30}, {"Evil Echo", 35}, {"Phantom", 40}, {"Witch", 45}, {"Demon", 50} };
+
+int main() {
+    level = 1;
+    xp = 0;
+    nextLevel = 76;
+
+    // character creation 
+
+    std::cout << "Enter Character's Name: ";
+    std::cin >> name;
+
+    std::cout << "Enter Character's race\n";
+    for(const auto& raceOption : playerRace) {
+        std::cout << raceOption << "\n";
+    }
+    std::cout << "Type your race below: \n\n";
+    std::cin >> race;
+
+    std::transform(race.begin(), race.end(), race.begin(), ::tolower);
+
+    health = 100; // Default health value
+    auto it = std::find(playerRace.begin(), playerRace.end(), race);
+    if (it != playerRace.end()) {
+        switch (it - playerRace.begin()) {
+            case 0:
+                health = 80;
+                break;
+            case 1:
+                health = 120;
+                break;
+            case 2:
+                health = 110;
+                break;
+            case 3:
+                health = 90;
+                break;
+        }
+    }
+
+    std::cout << "\n";
+    std::cout << "Enter Character's Sex: ";
+    std::cin >> sex;
+
+    // Remaining code...
+
+    return 0;
+}
